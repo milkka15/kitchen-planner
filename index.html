@@ -213,6 +213,7 @@ main.drawer-panel #fab{opacity:0;visibility:hidden}
   .lib-grid{grid-template-columns:1fr 1fr 1fr}
   .brand span,footer .only2d{display:none!important}
 }
+.only2d { display: none !important; }
 </style>
 <script type="importmap">
 {"imports":{
@@ -229,16 +230,7 @@ main.drawer-panel #fab{opacity:0;visibility:hidden}
       <button class="btn chip" id="tgPanel" data-en="Properties ◨">属性 ◨</button>
     </div>
     <div class="brand"><b data-en="3BR 2LR 2BA · Interior Design">三室两厅两卫 · 装修设计</b><span id="subtitle">原始户型 1:60 · 尺寸单位 mm</span></div>
-    <div class="grp seg" id="viewSeg" title="切换 2D / 3D (T)" data-en-title="Switch 2D / 3D (T)">
-      <span class="pill"></span>
-      <button class="btn" data-view="2d" data-en="2D Plan">2D 平面</button>
-      <button class="btn" data-view="3d" data-en="3D Scene">3D 场景</button>
-    </div>
-    <div class="grp only2d" id="tools">
-      <button class="btn on" data-tool="select" title="选择 / 移动 (V)" data-en-title="Select / Move (V)" data-en="Select">选择</button>
-      <button class="btn" data-tool="measure" title="测量 (M)" data-en-title="Measure (M)" data-en="Measure">测量</button>
-      <button class="btn" data-tool="demolish" title="拆改非承重墙 (X)" data-en-title="Demolish non-bearing walls (X)" data-en="Demolish">拆改墙体</button>
-    </div>
+       
     <div class="grp only2d">
       <button class="btn" id="zoomOut" title="缩小" data-en-title="Zoom out">−</button>
       <button class="btn" id="zoomIn" title="放大" data-en-title="Zoom in">＋</button>
@@ -279,10 +271,11 @@ main.drawer-panel #fab{opacity:0;visibility:hidden}
     <div class="grp only3d"><label class="range"><span data-en="Sun">日照</span> <input type="range" id="sun" min="7" max="18" step=".25" value="10" style="width:84px"><span id="sunT">10:00</span></label></div>
     <div class="spacer"></div>
     <div class="grp" id="langSel" role="group" aria-label="Language / 语言">
-      <button class="btn chip" data-lang="zh" title="简体中文">简</button>
-      <button class="btn chip" data-lang="zht" title="繁體中文">繁</button>
-      <button class="btn chip" data-lang="en" title="English">EN</button>
-    </div>
+  <button class="btn chip" data-lang="zh" title="简体中文">简</button>
+  <button class="btn chip" data-lang="zht" title="繁體中文">繁</button>
+  <button class="btn chip" data-lang="en" title="English">EN</button>
+  <button class="btn chip" data-lang="ru" title="Русский">RU</button>
+</div>
     <button class="btn" id="fullscreen" title="全屏 (Shift+F)" style="border:1px solid var(--line);background:#fff">⛶ 全屏</button>
     <details class="menu"><summary class="btn" data-en="File ▾">文件 ▾</summary>
       <div class="menu-pop">
@@ -345,13 +338,13 @@ main.drawer-panel #fab{opacity:0;visibility:hidden}
 <script>
 /* ======================= 多语言（中文 / English，默认中文） ======================= */
 const LANG_KEY = 'huxing-lang';
-const LANGS = ['zh', 'zht', 'en'];             // 简体 / 繁體（台湾用字）/ English
-let LANG = (() => { try { const l = localStorage.getItem(LANG_KEY); return LANGS.includes(l) ? l : 'zh'; } catch(e) { return 'zh'; } })();
+const LANGS = ['zh', 'zht', 'en', 'ru'];           // 简体 / 繁體（台湾用字）/ English
+let LANG = (() => { try { const l = localStorage.getItem(LANG_KEY); return LANGS.includes(l) ? l : 'ru'; } catch(e) { return 'ru'; } })();
 // 简 → 繁：先按词替换一字多义的字，再逐字查表（表由 OpenCC s2tw 按本页用到的字生成）
 const S2T_PHRASES = [['布置','佈置'],['布局','佈局'],['台面','檯面'],['复制','複製']];
 const S2T = new Map(('与與两兩个個为為书書于於仅僅从從价價会會传傳体體余餘侧側倾傾储儲儿兒关關内內写寫净淨准準击擊则則刚剛删刪制製办辦动動势勢区區单單占佔卧臥卫衛厅廳历歷压壓厨廚双雙发發变變叶葉后後吗嗎听聽启啟哑啞围圍图圖圆圓场場坐座块塊垫墊墙牆处處备備复復头頭妆妝婴嬰实實宽寬对對导導层層屉屜属屬岛島带帶干乾并並库庫应應开開当當径徑态態总總悬懸懒懶户戶护護拟擬择擇挂掛挡擋挤擠损損换換据據摆擺摇搖撑撐数數无無时時显顯暂暫机機杂雜杆桿条條来來松鬆构構柜櫃标標栈棧栏欄样樣梁樑棱稜椭橢横橫橱櫥气氣没沒注註浅淺测測浏瀏游遊滚滾满滿灯燈灵靈点點热熱状狀独獨环環现現电電画畫监監盖蓋盘盤砖磚确確离離积積称稱竖豎筑築签籤类類约約级級线線结結绕繞绘繪给給统統继繼绿綠缀綴编編缝縫缩縮网網联聯脚腳获獲虚虛装裝见見视視览覽触觸计計认認让讓议議记記设設识識译譯该該语語请請读讀调調负負败敗质質贴貼赶趕转轉轮輪软軟轴軸轻輕载載较較辅輔辑輯边邊过過这這进進远遠适適选選邻鄰里裡针針钢鋼钮鈕铰鉸铺鋪销銷锁鎖键鍵镜鏡长長门門闭閉闲閒间間阅閱阳陽阴陰阶階随隨隐隱静靜页頁顶頂项項顺順颜顏飘飄飞飛马馬鸟鳥齐齊龙龍').match(/../gu).map(p => [...p]));
 const s2t = s => S2T_PHRASES.reduce((a, [f, t]) => a.replaceAll(f, t), s).replace(/[\u3400-\u9fff]/g, c => S2T.get(c) || c);
-const tr = (zh, en) => LANG === 'en' ? en : LANG === 'zht' ? s2t(zh) : zh;
+const tr = (zh, en) => LANG === 'en' ? en : LANG === 'ru' ? (NAMES_RU[zh] ?? en ?? zh) : LANG === 'zht' ? s2t(zh) : zh;
 // 内置的房间 / 材料 / 家具名称存的是中文；英文界面下显示译名，用户自己改过的名称原样显示
 const NAMES_EN = {
   '主卧室':'Master Bedroom', '主卫浴':'Master Bath', '小孩房':"Kids' Room", '客卫浴':'Guest Bath', '洗衣阳台':'Laundry Balcony',
@@ -373,11 +366,31 @@ const NAMES_EN = {
   '蒸烤箱高柜':'Oven Tower', '烘干机':'Dryer', '空气净化器':'Air Purifier', '长书桌':'Long Desk', '办公椅':'Office Chair',
   '大书架':'Large Bookshelf', '立式钢琴':'Upright Piano', '跑步机':'Treadmill', '阅读椅':'Reading Chair', '茶桌':'Tea Table', '休闲椅':'Lounge Chair',
 };
-const nm = s => LANG === 'en' ? (NAMES_EN[s] ?? s) : LANG === 'zht' ? s2t(s) : s;
+const NAMES_RU = {
+  '主卧室':'Спальня', '主卫浴':'Санузел', '小孩房':'Детская', '客卫浴':'Гостевой санузел', '洗衣阳台':'Балкон-прачечная',
+  '子女房':'Детская', '厨房':'Кухня', '餐厅':'Столовая', '过道':'Коридор', '客厅':'Гостиная', '休闲阳台':'Балкон',
+  '主卧飘窗':'Окно спальни', '子女房飘窗':'Окно детской',
+  '橡木地板':'Дубовый паркет', '胡桃木地板':'Паркет орех', '800 地砖':'Плитка 800', '600 地砖':'Плитка 600', '大理石':'Мрамор',
+  '300 防滑砖':'Плитка 300', '水磨石':'Терраццо', '满铺地毯':'Ковролин',
+  '卧室':'Спальня', '餐厨':'Кухня и столовая', '卫浴':'Санузел', '家电':'Техника', '书房 · 休闲':'Кабинет',
+  '双人床 1.8m':'Кровать 1.8м', '双人床 1.5m':'Кровать 1.5м', '双人床':'Двуспальная кровать', '单人床':'Односпальная кровать', '婴儿床':'Детская кроватка',
+  '床头柜':'Тумбочка', '衣柜':'Шкаф', '小衣柜':'Шкаф малый', '梳妆台':'Туалетный столик', '书桌':'Стол письменный', '椅子':'Стул',
+  '书架':'Стеллаж', '飘窗垫':'Подушка на окно', '三人沙发':'Диван 3-местный', '双人沙发':'Диван 2-местный', '转角沙发':'Угловой диван',
+  '单人沙发':'Кресло', '懒人沙发':'Кресло-мешок', '茶几':'Журнальный столик', '边几':'Столик', '电视柜':'ТВ-тумба', '地毯':'Ковёр',
+  '鞋柜':'Обувница', '玄关柜':'Шкаф в прихожую', '落地灯':'Торшер', '绿植':'Растение', '大绿植':'Растение большое',
+  '餐桌':'Обеденный стол', '六人餐桌':'Стол на 6 персон', '圆桌':'Круглый стол', '餐椅':'Стул обеденный', '岛台':'Остров',
+  '吧椅':'Барный стул', '橱柜台面':'Столешница', '燃气灶':'Плита', '水槽':'Раковина', '冰箱':'Холодильник', '餐边柜':'Сервант',
+  '马桶':'Унитаз', '浴室柜':'Тумба в ванную', '双盆浴室柜':'Тумба с 2 раковинами', '淋浴房':'Душевая', '淋浴区':'Душевая зона', '浴缸':'Ванна',
+  '洗衣机':'Стиральная машина', '洗衣池':'Раковина для стирки', '电热水器':'Водонагреватель', '储物柜':'Шкаф для хранения', '65 寸电视':'Телевизор 65"',
+  '55 寸电视':'Телевизор 55"', '对开门冰箱':'Холодильник Side-by-Side', '柜机空调':'Кондиционер напольный', '挂机空调':'Кондиционер настенный', '洗碗机':'Посудомойка',
+  '蒸烤箱高柜':'Пенал с духовкой', '烘干机':'Сушильная машина', '空气净化器':'Очиститель воздуха', '长书桌':'Длинный стол', '办公椅':'Офисное кресло',
+  '大书架':'Большой стеллаж', '立式钢琴':'Пианино', '跑步机':'Беговая дорожка', '阅读椅':'Кресло для чтения', '茶桌':'Чайный столик', '休闲椅':'Кресло',
+};
+const nm = s => LANG === 'en' ? (NAMES_EN[s] ?? s) : LANG === 'ru' ? (NAMES_RU[s] ?? s) : LANG === 'zht' ? s2t(s) : s;
 // 静态文案：元素上写 data-en / data-en-title，中文原文首次切换时存进 dataset
 function applyStaticLang(){
-  document.documentElement.lang = {zh:'zh-CN', zht:'zh-TW', en:'en'}[LANG];
-  document.title = tr('户型装修设计', 'Floor Plan Designer');
+  document.documentElement.lang = {zh:'zh-CN', zht:'zh-TW', en:'en', ru:'ru'}[LANG];
+  document.title = LANG === 'ru' ? 'Дизайн интерьера' : tr('户型装修设计', 'Floor Plan Designer');
   document.querySelectorAll('[data-en]').forEach(el => { el.dataset.zh ??= el.textContent; el.textContent = tr(el.dataset.zh, el.dataset.en); });
   document.querySelectorAll('[data-en-title]').forEach(el => { el.dataset.zhTitle ??= el.title; el.title = tr(el.dataset.zhTitle, el.dataset.enTitle); });
   document.querySelectorAll('#langSel [data-lang]').forEach(b => { const on = b.dataset.lang === LANG; b.classList.toggle('on', on); b.setAttribute('aria-pressed', on); });
@@ -393,71 +406,24 @@ function applyStaticLang(){
  * ============================================================ */
 // 墙体：[x0,y0,x1,y1,类型]  b=承重(黑) e=外墙 n=可拆非承重 low=矮墙
 const WALLS = [
-  // 顶部外墙
-  [1580,-240,2120,0,'b'],[1580,0,1820,300,'b'],[2120,-240,4580,0,'e'],[4580,-240,5140,0,'e'],
-  [5760,-240,6050,0,'e'],[6050,-240,6600,0,'b'],[6360,0,6600,300,'b'],[6600,-240,9960,0,'e'],
-  [9960,-240,10510,0,'b'],[10270,0,10510,300,'b'],
-  // 右侧外墙
-  [10270,300,10510,800,'e'],[10270,2600,10510,3090,'e'],[10270,3090,10510,4260,'b'],
-  [10270,5740,10510,6370,'b'],[9960,6370,10510,6610,'b'],[10270,6610,10510,7400,'b'],
-  [10270,9770,10510,10560,'b'],[9960,10560,10510,10800,'b'],
-  // 底部 / 阳台
-  [4580,10560,9960,10800,'e'],[10510,10560,12090,10800,'e'],[11850,9960,12090,10560,'e'],
-  // 客厅左墙（入户门两侧）
-  [4580,9200,4820,10560,'e'],[4580,7960,4820,8310,'e'],
-  // 餐厅 / 厨房外墙
-  [3620,7960,4580,8200,'e'],[2180,7960,3620,8200,'b'],[2180,7590,2420,7960,'b'],[2180,7400,2420,7590,'n'],
-  [-240,7960,2180,8200,'e'],[-240,3610,0,7960,'e'],
-  // 洗衣阳台
-  [0,4950,200,5190,'n'],[200,4950,1275,5190,'low'],[1580,3370,2420,3825,'b'],
-  [2180,4430,2420,5796,'n'],[2090,4950,2180,5190,'n'],
-  // 客卫
-  [2420,4950,4580,5190,'n'],[4580,3280,4820,4075,'n'],[4580,4860,4820,5190,'n'],[2420,3370,4580,3610,'n'],
-  // 小孩房 / 主卫
-  [4580,0,4820,2400,'n'],[4820,2080,6360,2320,'n'],[6360,300,6600,1198,'n'],[6360,1983,6600,2400,'n'],
-  // 过道 / 主卧 / 子女房
-  [6083,3370,6600,3707,'b'],[6360,3280,6600,3370,'n'],[6600,3370,9960,3610,'n'],[9960,3370,10270,3610,'b'],
-  [6083,4600,6323,6610,'n'],[6323,6370,9960,6610,'n'],
-];
-// 窗
+  // Стены кухни (по периметру комнаты 0,5190 → 2180,7960)
+  [-240,4950,0,8200,'e'],       // левая стена
+  [-240,7960,2180,8200,'e'],    // нижняя стена
+  [2180,5190,2420,7960,'n'],    // правая стена (внутренняя)
+  [-240,4950,2180,5190,'n'],    // верхняя стена (внутренняя)
+];// 窗
 const WINS = [
-  [5140,-240,5760,0],[1580,300,1820,3370],[-240,3370,1580,3610],[2180,3825,2420,4430],
-  [10510,6370,12090,6610],[11850,6610,12090,9960],
-  // 飘窗（主卧 / 子女房）
-  [10510,660,11130,760],[11030,760,11130,2650],[10510,2650,11130,2750],
-  [10510,4110,11130,4210],[11030,4210,11130,5785],[10510,5785,11130,5885],
+  // Окно на левой стене кухни
+  [-240,5500,0,7000],
 ];
 // 平开门：洞口、铰点、关闭方向、开启方向、门宽
-const DOORS = [
-  {name:'小孩房门',rect:[4580,2400,4820,3280],h:[4580,3280],c:[0,-1],o:[-1,0],len:880},
-  {name:'主卧门',rect:[6360,2400,6600,3280],h:[6600,3280],c:[0,-1],o:[1,0],len:880},
-  {name:'主卫门',rect:[6360,1198,6600,1983],h:[6360,1198],c:[0,1],o:[-1,0],len:785},
-  {name:'客卫门',rect:[4580,4075,4820,4860],h:[4580,4860],c:[0,-1],o:[-1,0],len:785},
-  {name:'子女房门',rect:[6083,3707,6323,4600],h:[6323,4600],c:[0,-1],o:[1,0],len:893},
-  {name:'入户门',rect:[4580,8310,4820,9200],h:[4820,9200],c:[0,-1],o:[1,0],len:890,entry:true},
-];
+const DOORS = [];
 // 推拉门
-const SLIDES = [
-  {rect:[10270,7400,10510,9770],v:true},
-  {rect:[1275,4950,2090,5190],v:false},
-];
+const SLIDES = [];
 const R = (x0,y0,x1,y1) => [[x0,y0],[x1,y0],[x1,y1],[x0,y1]];
 const ROOMS = [
-  {id:'master', name:'主卧室', poly:R(6600,0,10270,3370), mat:'wood', at:[8435,2420]},
-  {id:'mbath', name:'主卫浴', poly:R(4820,0,6360,2080), mat:'antislip', at:[5980,1780]},
-  {id:'kid', name:'小孩房', poly:R(1820,0,4580,3370), mat:'wood', at:[3380,2330]},
-  {id:'gbath', name:'客卫浴', poly:R(2420,3610,4580,4950), mat:'antislip', at:[3760,4620]},
-  {id:'laundry', name:'洗衣阳台', poly:R(0,3610,2180,4950), mat:'antislip', at:[1250,4330]},
-  {id:'child', name:'子女房', poly:R(6323,3610,10270,6370), mat:'wood', at:[8850,4850]},
   {id:'kitchen', name:'厨房', poly:R(0,5190,2180,7960), mat:'tile600', at:[1300,6500]},
-  {id:'dining', name:'餐厅', poly:[[2420,5190],[4820,5190],[4820,7960],[2420,7960],[2420,7400],[2180,7400],[2180,5796],[2420,5796]], mat:'tile800', at:[3900,5520]},
-  {id:'hall', name:'过道', poly:[[4820,2320],[6360,2320],[6360,3370],[6083,3370],[6083,6610],[4820,6610]], mat:'tile800', at:[5450,4450]},
-  {id:'living', name:'客厅', poly:R(4820,6610,10270,10560), mat:'tile800', at:[7600,7560]},
-  {id:'balcony', name:'休闲阳台', poly:R(10510,6610,11850,10560), mat:'walnut', at:[11180,9450]},
-  {id:'bay1', name:'主卧飘窗', poly:[[10270,800],[10510,800],[10510,760],[11030,760],[11030,2650],[10510,2650],[10510,2600],[10270,2600]], mat:'marble', counted:false},
-  {id:'bay2', name:'子女房飘窗', poly:[[10270,4260],[10510,4260],[10510,4210],[11030,4210],[11030,5785],[10510,5785],[10510,5740],[10270,5740]], mat:'marble', counted:false},
-];
-const MATS = {
+];const MATS = {
   wood:    {name:'橡木地板', price:320, sw:'#d8b88a'},
   walnut:  {name:'胡桃木地板', price:380, sw:'#9b7250'},
   tile800: {name:'800 地砖', price:220, sw:'#ebe6dc'},
@@ -469,33 +435,33 @@ const MATS = {
 };
 // 家具库：[类型, 名称, 宽, 深, 颜色]
 const LIB = [
-  {cat:'卧室', items:[
-    ['bed','双人床 1.8m',1800,2000,'#c9d6df'],['bed','双人床 1.5m',1500,2000,'#d8c7dc'],['bed','单人床',1200,2000,'#e8d5b5'],
-    ['crib','婴儿床',1250,700,'#efe3d0'],['nightstand','床头柜',450,400,'#e8dccb'],['wardrobe','衣柜',2000,600,'#efe6d8'],
-    ['wardrobe','小衣柜',1200,550,'#efe6d8'],['dresser','梳妆台',1000,450,'#efe6d8'],['desk','书桌',1200,600,'#e2cfb4'],
-    ['chair','椅子',450,480,'#cfc6b8'],['bookshelf','书架',800,300,'#e2cfb4'],['baycushion','飘窗垫',520,1800,'#e7dccd']]},
-  {cat:'客厅', items:[
-    ['sofa','三人沙发',2400,900,'#b7c4b0'],['sofa','双人沙发',1700,880,'#c3cbd6'],['cornersofa','转角沙发',2800,1700,'#b7c4b0'],
-    ['armchair','单人沙发',850,850,'#d6b99a'],['beanbag','懒人沙发',800,800,'#e0b98f'],['coffeetable','茶几',1300,650,'#e8dccb'],
-    ['sidetable','边几',500,500,'#d9c3a3'],['tvstand','电视柜',2400,400,'#e2cfb4'],['rug','地毯',2400,1700,'#d9cbb8'],
-    ['shoecab','鞋柜',1000,350,'#efe6d8'],['shoecab','玄关柜',1400,380,'#e6dccc'],['floorlamp','落地灯',450,450,'#3d3a34'],
-    ['plant','绿植',500,500,'#a9c39b'],['plant','大绿植',700,700,'#9dbb8c']]},
-  {cat:'餐厨', items:[
-    ['table','餐桌',1400,800,'#e2cfb4'],['table','六人餐桌',1800,900,'#d8c2a2'],['roundtable','圆桌',1000,1000,'#e2cfb4'],
-    ['chair','餐椅',450,480,'#cfc6b8'],['island','岛台',1800,900,'#e9e5de'],['barstool','吧椅',420,420,'#6b5d4c'],
-    ['counter','橱柜台面',1600,600,'#e9e5de'],['stove','燃气灶',750,450,'#dcdcdc'],['ksink','水槽',800,450,'#e1e6ea'],
-    ['fridge','冰箱',700,700,'#dfe4e8'],['cabinet','餐边柜',1600,400,'#efe6d8']]},
-  {cat:'卫浴', items:[
-    ['toilet','马桶',400,700,'#ffffff'],['vanity','浴室柜',800,500,'#eef1f3'],['vanity','双盆浴室柜',1200,500,'#eef1f3'],
-    ['shower','淋浴房',900,900,'#e4edf2'],['bathtub','浴缸',1600,750,'#eef3f6'],['washer','洗衣机',600,600,'#e6ebee'],
-    ['waterheater','电热水器',800,450,'#f4f4f2'],['cabinet','储物柜',1000,400,'#efe6d8']]},
-  {cat:'家电', items:[
-    ['tv','65 寸电视',1450,80,'#1d1d1f'],['tv','55 寸电视',1230,80,'#1d1d1f'],['fridge','对开门冰箱',910,700,'#c9ced3'],
-    ['aircon','柜机空调',500,380,'#f6f7f8'],['acwall','挂机空调',900,250,'#f6f7f8'],['dishwasher','洗碗机',600,600,'#c9ced3'],
-    ['ovencol','蒸烤箱高柜',600,600,'#efe6d8'],['dryer','烘干机',600,600,'#e6ebee'],['purifier','空气净化器',400,300,'#f4f4f2']]},
-  {cat:'书房 · 休闲', items:[
-    ['desk','长书桌',1600,700,'#d8c2a2'],['officechair','办公椅',620,620,'#4a4f55'],['bookshelf','大书架',1600,350,'#e2cfb4'],
-    ['piano','立式钢琴',1500,600,'#1f1d1b'],['treadmill','跑步机',800,1800,'#3a3a3c'],['armchair','阅读椅',750,800,'#c9a98a']]},
+  {cat:'Кухня', items:[
+    ['counter','Столешница 600',1600,600,'#e9e5de'],
+    ['counter','Столешница 900',900,600,'#e9e5de'],
+    ['counter','Столешница угловая',1200,1200,'#e9e5de'],
+    ['cabinet','Шкаф напольный 400',400,600,'#efe6d8'],
+    ['cabinet','Шкаф напольный 600',600,600,'#efe6d8'],
+    ['cabinet','Шкаф напольный 800',800,600,'#efe6d8'],
+    ['cabinet','Шкаф напольный 1000',1000,600,'#efe6d8'],
+    ['cabinet','Шкаф навесной 600',600,350,'#efe6d8'],
+    ['cabinet','Шкаф навесной 800',800,350,'#efe6d8'],
+    ['cabinet','Пенал высокий',600,600,'#efe6d8'],
+    ['ovencol','Пенал с духовкой',600,600,'#efe6d8'],
+    ['stove','Плита 600',600,600,'#dcdcdc'],
+    ['ksink','Раковина 800',800,500,'#e1e6ea'],
+    ['ksink','Раковина 600',600,500,'#e1e6ea'],
+    ['fridge','Холодильник',700,700,'#dfe4e8'],
+    ['fridge','Холодильник Side-by-Side',900,700,'#dfe4e8'],
+    ['dishwasher','Посудомойка',600,600,'#c9ced3'],
+    ['washer','Мойка',600,600,'#e6ebee'],
+    ['island','Остров 1800',1800,900,'#e9e5de'],
+    ['island','Остров 2400',2400,900,'#e9e5de'],
+    ['table','Стол обеденный 1400',1400,800,'#e2cfb4'],
+    ['table','Стол обеденный 1800',1800,900,'#d8c2a2'],
+    ['roundtable','Стол круглый',1000,1000,'#e2cfb4'],
+    ['chair','Стул',450,480,'#cfc6b8'],
+    ['barstool','Барный стул',420,420,'#6b5d4c'],
+  ]},
 ];
 const typeColor = t => { for (const c of LIB) for (const i of c.items) if (i[0]===t) return i[4]; return '#eee'; };
 
@@ -868,7 +834,7 @@ function renderAll(){
 
 function updateHeader(){
   const tot = ROOMS.filter(r => r.counted !== false).reduce((a,r) => a + area(r.poly), 0);
-  $('#subtitle').textContent = tr(`套内使用面积约 ${fmt(tot)} m² · 尺寸单位 mm · 原图比例 1:60`, `Net floor area ≈ ${fmt(tot)} m² · Units: mm · Original scale 1:60`);
+  $('#subtitle').textContent = LANG === 'ru' ? `Площадь ≈ ${fmt(tot)} м² · мм · масштаб 1:60` : tr(`套内使用面积约 ${fmt(tot)} m² · 尺寸单位 mm · 原图比例 1:60`, `Net floor area ≈ ${fmt(tot)} m² · Units: mm · Original scale 1:60`);
   $('#undo').disabled = !undoStack.length; $('#redo').disabled = !redoStack.length;
   $('#undo').style.opacity = undoStack.length ? 1 : .4; $('#redo').style.opacity = redoStack.length ? 1 : .4;
 }
@@ -1502,10 +1468,40 @@ function setLang(l){
 $('#langSel').onclick = e => { const l = e.target.closest('[data-lang]')?.dataset.lang; if (l && l !== LANG) setLang(l); };
 
 applyStaticLang(); syncFullscreen();
+
+// === Только кухня ===
+ROOMS.length = 0;
+ROOMS.push({id:'kitchen', name:'厨房', poly:R(0,5190,2180,7960), mat:'tile600', at:[1090,6575]});
+
+WALLS.length = 0;
+WALLS.push(
+  [-240,4950,0,8200,'e'],
+  [-240,7960,2180,8200,'e'],
+  [2180,5190,2420,7960,'n'],
+  [-240,4950,2180,5190,'n']
+);
+
+WINS.length = 0;
+WINS.push([-240,5500,0,7000]);
+
+DOORS.length = 0;
+SLIDES.length = 0;
+
+state = defaultState();
+state.furniture = [
+  // Столешница вдоль левой стены
+  F('counter','Столешница',400,6575,600,2570,0),
+  // Плита на столешнице
+  F('stove','Плита',400,5800,450,750,0),
+  // Раковина на столешнице
+  F('ksink','Раковина',400,7300,450,800,0),
+];
+// === Конец блока «Только кухня» ===
+
 buildDefs(); buildLib(); renderOpenings(); renderDims();
-$('#tip').textContent = TIPS()['2d'];
 fitView(); renderAll();
-</script>
+setTimeout(() => setView('3d'), 600);
+setTimeout(() => window.View3D?.flyToRoom('kitchen'), 2800);</script>
 <script type="module">
 /* ============================================================
  *  3D 场景（three.js）—— 与 2D 共用 state / ui，切换时带过渡动画：
@@ -1565,7 +1561,7 @@ function init(){
 
   const pm = new THREE.PMREMGenerator(renderer); envTex = pm.fromScene(new RoomEnvironment(), .04).texture; pm.dispose();
   glassMat = new THREE.MeshPhysicalMaterial({color:0xcfe6ef, roughness:.05, transparent:true, opacity:.28, depthWrite:false, side:THREE.DoubleSide});
-  wallMat = mat('#f4f1eb', {roughness:.92}); capMat = mat('#34312d', {roughness:.9}); frameMat = mat('#5d6166', {roughness:.5, metalness:.4});
+  wallMat = mat('#f4f1eb', {roughness:.92, transparent:true, opacity:.35}); capMat = mat('#34312d', {roughness:.9}); frameMat = mat('#5d6166', {roughness:.5, metalness:.4});
 
   archFloor = new THREE.Group(); archUp = new THREE.Group(); furnG = new THREE.Group(); labelG = new THREE.Group(); lampG = new THREE.Group();
   scene.add(archFloor, archUp, furnG, labelG, lampG);
